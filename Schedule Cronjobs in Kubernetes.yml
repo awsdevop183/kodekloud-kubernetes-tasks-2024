@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: xfusion
+spec:
+  schedule: "* * * * *"  # Runs at the top of every hour
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: httpd-cronjob
+        spec:
+          containers:
+          - name: cron-xfusion
+            image: httpd:latest
+            command:
+            - /bin/sh
+            - -c
+            - "echo Welcome to xfusioncorp!"
+          restartPolicy: OnFailure
